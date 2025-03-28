@@ -14,49 +14,44 @@
     Fancy display heading
     <small class="text-body-secondary">With faded secondary text</small>
 </h2> -->
-<div class="container">
-    <div class="row">
-        <div class="col-8">
-            <div class="card mt-5">
-                <h1 class="card-header">Laureados de los premios nobel por país y categoría</h1>
-                <div id="my_dataviz" class="card-body"></div>
-                <div class="card-footer" id="tooltip">
-                    
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card mt-5">
+                    <h1 class="card-header">Ganadores de los Premios Nobel por género</h1>
+                    <div id="my_dataviz" class="card-body"></div>
+                    <div class="card-footer" id="tooltip">
+                        
+                    </div>
                 </div>
             </div>
+            <div class="col-2"></div>
         </div>
-        <div class="col-4"></div>
     </div>
-    <!-- <div class="row">
-        <div id="tooltip" class="alert alert-dark col-8" style="margin-top: 2%;" role="alert">
-        </div>
-    </div> -->
-</div>
+</body>
 
 <style>
     .node:hover {
         stroke-width: 7px !important;
         opacity: 1 !important;
     }
-    /* #my_dataviz{
-        display: block;
-        margin: 11% auto 1% auto;
-        background-color: antiquewhite;
-        border: black 2px solid;
-        border-radius: 8px;
-    } */
+    body {
+        background-color: #a1a1a1;
+    }
 </style>
 
 <script>
 
     // set the dimensions and margins of the graph
     var width = 800
-    var height = 600
+    var height = 400
 
     // append the svg object to the body of the page
     var svg = d3.select("#my_dataviz")
         .append("svg")
-        .attr("width", width)
+        .attr("width", "100%")
         .attr("height", height)
 
     // Read data
@@ -64,34 +59,37 @@
 
         // Filter a bit the data -> more than 1 million inhabitants
         console.log(data)
-        data = data.filter(function (d) { return d.cnt > 1 })
 
         // Color palette for continents?
         var color = d3.scaleOrdinal()
-            .domain(["chemistry", "economics", "literature", "medicine", "peace", "physics"])
+            .domain(["Química", "Economía", "Literatura", "Medicina", "Paz", "Física"])
             .range(d3.schemeSet1);
 
         // Size scale for countries
         var size = d3.scaleLinear()
-            .domain([0, 1400000000])
-            .range([10, 75])  // circle will be between 7 and 55 px wide
+            .domain([1, 250])
+            .range([7, 70])  // circle will be between 7 and 55 px wide
 
         // create a tooltip
         var Tooltip = d3.select("#tooltip")
-            .style("opacity", 0)
+            .style("display", "none")
 
         // Three function that change the tooltip when user hover / move / leave a cell
         var mouseover = function (d) {
             Tooltip
-                .style("opacity", 1)
+                .style("display", "block")
         }
         var mousemove = function (d) {
             Tooltip
-                .html("<h5 class='card-title'>" + d.gender + "</h5>" + "<p class='card-text'>" + d.cnt + " inhabitants" + "</p>")
+                .html(`<h5 class='card-title'> Nobel de ${d.category} </h5>` + `<p class='card-text'>Hasta 2024 han sido galardonados(as) <strong>${d.cnt} ${d.gender}</strong> en esta categoría. Uno(a) de estos galardonados(as) es:</p>
+                        <blockquote class="blockquote mb-0">
+                            <p>${d.representative}</p>
+                            <footer class="blockquote-footer"><cite title="Source Title">${d.reason}</cite></footer>
+                        </blockquote>`)
         }
         var mouseleave = function (d) {
             Tooltip
-                .style("opacity", 0)
+                .style("display", "none")
         }
 
         // Initialize the circle: all located at the center of the svg area
