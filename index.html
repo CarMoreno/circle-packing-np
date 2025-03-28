@@ -7,20 +7,13 @@
 
 <!-- Color palette -->
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<!-- <script src="./circle-packing.js"></script> -->
-
-<!-- Create a div where the graph will take place -->
-<!-- <h2>
-    Fancy display heading
-    <small class="text-body-secondary">With faded secondary text</small>
-</h2> -->
 <body>
     <div class="container">
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="card mt-5">
-                    <h1 class="card-header">Ganadores de los Premios Nobel por género</h1>
+                    <h1 class="card-header">Ganadores de los Premios Nobel por género (1901-2023)</h1>
                     <div id="my_dataviz" class="card-body"></div>
                     <div class="card-footer" id="tooltip">
                         
@@ -43,7 +36,7 @@
 </style>
 
 <script>
-
+    // This code is based on the d3.js examples provided here: https://d3-graph-gallery.com/graph/circularpacking_template.html
     // set the dimensions and margins of the graph
     var width = 800
     var height = 400
