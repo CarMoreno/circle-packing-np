@@ -60,14 +60,15 @@
         .attr("height", height)
 
     // Read data
-    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", function (data) {
+    d3.csv("https://raw.githubusercontent.com/CarMoreno/circle-packing-np/refs/heads/main/circle_parking_nobel.csv", function (data) {
 
         // Filter a bit the data -> more than 1 million inhabitants
-        data = data.filter(function (d) { return d.value > 10000000 })
+        console.log(data)
+        data = data.filter(function (d) { return d.cnt > 1 })
 
         // Color palette for continents?
         var color = d3.scaleOrdinal()
-            .domain(["male", "female"])
+            .domain(["chemistry", "economics", "literature", "medicine", "peace", "physics"])
             .range(d3.schemeSet1);
 
         // Size scale for countries
@@ -86,7 +87,7 @@
         }
         var mousemove = function (d) {
             Tooltip
-                .html("<h5 class='card-title'>" + d.key + "</h5>" + "<p class='card-text'>" + d.value + " inhabitants" + "</p>")
+                .html("<h5 class='card-title'>" + d.gender + "</h5>" + "<p class='card-text'>" + d.cnt + " inhabitants" + "</p>")
         }
         var mouseleave = function (d) {
             Tooltip
@@ -100,10 +101,10 @@
             .enter()
             .append("circle")
             .attr("class", "node")
-            .attr("r", function (d) { return size(d.value) })
+            .attr("r", function (d) { return size(d.cnt) })
             .attr("cx", width / 2)
             .attr("cy", height / 2)
-            .style("fill", function (d) { return color(d.region) })
+            .style("fill", function (d) { return color(d.category) })
             .style("fill-opacity", 0.8)
             .attr("stroke", "black")
             .style("stroke-width", 1)
@@ -119,7 +120,7 @@
         var simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
             .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.value) + 3) }).iterations(1)) // Force that avoids circle overlapping
+            .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.cnt) + 3) }).iterations(1)) // Force that avoids circle overlapping
 
         // Apply these forces to the nodes and update their positions.
         // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
