@@ -16,7 +16,7 @@
                     <h1 class="card-header">Ganadores de los Premios Nobel por género (1901-2023)</h1>
                     <div id="my_dataviz" class="card-body"></div>
                     <div class="card-footer" id="tooltip">
-                        
+                        <p class="text-muted">Pasa el cursor sobre cada burbuja</p>
                     </div>
                 </div>
             </div>
@@ -65,13 +65,13 @@
 
         // create a tooltip
         var Tooltip = d3.select("#tooltip")
-            .style("display", "none")
+            // .style("display", "none")
 
         // Three function that change the tooltip when user hover / move / leave a cell
         var mouseover = function (d) {
-            Tooltip
-                .style("display", "block")
+
         }
+        
         var mousemove = function (d) {
             Tooltip
                 .html(`<h5 class='card-title'> Nobel de ${d.category} </h5>` + `<p class='card-text'>Hasta 2024 han sido galardonados(as) <strong>${d.cnt} ${d.gender}</strong> en esta categoría. Uno(a) de estos galardonados(as) es:</p>
@@ -82,7 +82,7 @@
         }
         var mouseleave = function (d) {
             Tooltip
-                .style("display", "none")
+                .html("<p class='text-muted'>Pasa el cursor sobre cada burbuja</p>")
         }
 
         // Initialize the circle: all located at the center of the svg area
