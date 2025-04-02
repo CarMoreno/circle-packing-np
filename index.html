@@ -69,12 +69,11 @@
 
         // Three function that change the tooltip when user hover / move / leave a cell
         var mouseover = function (d) {
-
         }
         
         var mousemove = function (d) {
             Tooltip
-                .html(`<h5 class='card-title'> Nobel de ${d.category} </h5>` + `<p class='card-text'>Hasta 2024 han sido galardonados(as) <strong>${d.cnt} ${d.gender}</strong> en esta categoría. Uno(a) de estos galardonados(as) es:</p>
+                .html(`<h5 class='card-title'> Nobel de ${d.category} </h5>` + `<p class='card-text'>Hasta 2023 han sido galardonados(as) <strong>${d.cnt} ${d.gender}</strong> en esta categoría. Uno(a) de estos galardonados(as) es:</p>
                         <blockquote class="blockquote mb-0">
                             <p>${d.representative}</p>
                             <footer class="blockquote-footer"><cite title="Source Title">${d.reason}</cite></footer>
